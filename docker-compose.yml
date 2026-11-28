@@ -1,21 +1,25 @@
 services:
   postgres:
     image: pgvector/pgvector:pg16
-    container_name: devpilot-postgres
+    container_name: genai-codebase-intelligence-postgres
+
     environment:
-      POSTGRES_DB: devpilot
+      POSTGRES_DB: genai_codebase_intelligence
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+
     ports:
       - "5433:5432"
+
     volumes:
-      - devpilot_pg_data:/var/lib/postgresql/data
+      - genai_codebase_intelligence_pg_data:/var/lib/postgresql/data
       - ./docker/postgres/init-extensions.sql:/docker-entrypoint-initdb.d/01-extensions.sql:ro
+
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d devpilot"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d genai_codebase_intelligence"]
       interval: 5s
       timeout: 5s
       retries: 5
 
 volumes:
-  devpilot_pg_data:
+  genai_codebase_intelligence_pg_data:
